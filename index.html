@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="EcoBin Smart - IoT-Based Smart Waste Management System | Alva's Institute of Engineering and Technology">
+  <title>EcoBin Smart | Smart Waste Management System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ============================================ -->
+  <!-- SPLASH SCREEN -->
+  <!-- ============================================ -->
+  <div id="splash-screen" class="screen active">
+    <div class="splash-bg-orbs">
+      <div class="splash-orb orb-1"></div>
+      <div class="splash-orb orb-2"></div>
+      <div class="splash-orb orb-3"></div>
+    </div>
+    <div class="splash-container">
+      <div class="splash-icon-wrapper">
+        <div class="splash-icon-ring"></div>
+        <div class="splash-icon-ring ring-2"></div>
+        <div class="splash-icon">
+          <svg viewBox="0 0 80 80" fill="none">
+            <rect x="20" y="18" width="40" height="44" rx="4" stroke="url(#splashGrad)" stroke-width="2.5" fill="none"/>
+            <path d="M26 18V14a2 2 0 012-2h24a2 2 0 012 2v4" stroke="url(#splashGrad)" stroke-width="2.5"/>
+            <path d="M30 35l6 6 14-14" stroke="#34D399" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="58" cy="52" r="10" fill="rgba(6,182,212,0.15)"/>
+            <path d="M55 52h6M58 49v6" stroke="#06B6D4" stroke-width="2" stroke-linecap="round"/>
+            <defs><linearGradient id="splashGrad" x1="20" y1="18" x2="60" y2="62"><stop stop-color="#34D399"/><stop offset="1" stop-color="#06B6D4"/></linearGradient></defs>
+          </svg>
+        </div>
+      </div>
+      <h1 class="splash-title">EcoBin Smart</h1>
+      <p class="splash-subtitle">Smart Waste Management System</p>
+      <div class="splash-divider"></div>
+      <p class="splash-college">Alva's Institute of Engineering & Technology</p>
+      <p class="splash-location">Moodbidri, Mangalore</p>
+      <div class="splash-loader">
+        <div class="splash-loader-bar"></div>
+      </div>
+      <p class="splash-loading-text">Connecting to IoT Network...</p>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- LOGIN SCREEN -->
+  <!-- ============================================ -->
+  <div id="login-screen" class="screen">
+    <div class="login-bg-orbs">
+      <div class="splash-orb orb-1"></div>
+      <div class="splash-orb orb-2"></div>
+    </div>
+    <div class="login-container">
+      <div class="login-header">
+        <div class="login-logo">
+          <svg viewBox="0 0 44 44" fill="none">
+            <rect x="10" y="8" width="24" height="28" rx="3" stroke="url(#loginGrad)" stroke-width="2" fill="none"/>
+            <path d="M14 8V5.5a1.5 1.5 0 011.5-1.5h13A1.5 1.5 0 0130 5.5V8" stroke="url(#loginGrad)" stroke-width="2"/>
+            <path d="M16 20l4 4 8-8" stroke="#34D399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs><linearGradient id="loginGrad" x1="10" y1="4" x2="34" y2="36"><stop stop-color="#10B981"/><stop offset="1" stop-color="#06B6D4"/></linearGradient></defs>
+          </svg>
+        </div>
+        <h1 class="login-title">EcoBin Smart</h1>
+        <p class="login-subtitle">IoT-Based Waste Management System</p>
+      </div>
+
+      <form class="login-form" id="login-form" autocomplete="off">
+        <div class="input-group">
+          <label for="email-input">Email Address</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
+            <input type="email" id="email-input" placeholder="admin@alvas.ac.in">
+          </div>
+        </div>
+        <div class="input-group">
+          <label for="password-input">Password</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
+            <input type="password" id="password-input" placeholder="Enter password">
+          </div>
+        </div>
+
+        <div class="login-options">
+          <label class="remember-me"><input type="checkbox" checked><span>Remember me</span></label>
+          <a href="#" class="forgot-password" onclick="event.preventDefault()">Forgot Password?</a>
+        </div>
+
+        <div class="role-selector">
+          <label>Login as</label>
+          <div class="role-chips">
+            <button type="button" class="role-chip active" data-role="admin">Admin</button>
+            <button type="button" class="role-chip" data-role="staff">WM Staff</button>
+            <button type="button" class="role-chip" data-role="faculty">Faculty</button>
+            <button type="button" class="role-chip" data-role="student">Student</button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary btn-signin">
+          <span>Sign In</span>
+          <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+        </button>
+
+        <button type="button" class="btn-guest" id="btn-guest">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/></svg>
+          <span>Guest Demo Mode</span>
+        </button>
+      </form>
+
+      <p class="login-footer">Alva's Institute of Engineering & Technology, Moodbidri</p>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- MAIN APP -->
+  <!-- ============================================ -->
+  <div id="app-wrapper" class="screen">
+    <!-- Header -->
+    <header class="app-header" id="app-header">
+      <div class="header-left">
+        <button class="header-btn" id="menu-btn" aria-label="Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="18" y2="18"/></svg>
+        </button>
+        <div class="header-title-group">
+          <h2 class="header-title" id="header-title">Dashboard</h2>
+          <span class="header-live-dot"></span>
+          <span class="header-live-text">LIVE</span>
+        </div>
+      </div>
+      <div class="header-right">
+        <button class="header-btn notification-btn" onclick="showTab('alerts')" aria-label="Notifications">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+          <span class="notification-badge">6</span>
+        </button>
+        <div class="header-avatar" onclick="showTab('project')"><span>A</span></div>
+      </div>
+    </header>
+
+    <!-- Side Menu -->
+    <div class="side-menu-overlay" id="side-menu-overlay"></div>
+    <nav class="side-menu" id="side-menu">
+      <div class="side-menu-header">
+        <div class="side-menu-avatar"><span>A</span></div>
+        <div>
+          <h3>Admin User</h3>
+          <p>admin@alvas.ac.in</p>
+        </div>
+      </div>
+      <ul class="side-menu-list">
+        <li class="active" onclick="showTab('home'); closeSideMenu()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg><span>Dashboard</span></li>
+        <li onclick="showTab('bins'); closeSideMenu()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>Smart Bins</span></li>
+        <li onclick="showTab('alerts'); closeSideMenu()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg><span>Live Alerts</span></li>
+        <li onclick="showTab('map'); closeSideMenu()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Campus Map</span></li>
+        <li onclick="showTab('analytics'); closeSideMenu()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg><span>Analytics</span></li>
+        <li onclick="showTab('project'); closeSideMenu()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Project Info</span></li>
+      </ul>
+      <div class="side-menu-footer">
+        <button class="btn-logout" onclick="handleLogout()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          <span>Sign Out</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- TABS -->
+    <main class="tab-content" id="tab-content">
+
+      <!-- HOME DASHBOARD -->
+      <section id="tab-home" class="tab-pane active">
+        <div class="tab-scroll">
+          <!-- Welcome -->
+          <div class="welcome-card">
+            <div class="welcome-text">
+              <span class="welcome-greeting" id="welcome-greeting">Good Afternoon 👋</span>
+              <h2>Welcome to <span class="gradient-text">EcoBin Smart</span></h2>
+              <p class="welcome-sub">Alva's Institute of Engineering & Technology</p>
+            </div>
+            <div class="welcome-right">
+              <span class="welcome-date" id="welcome-date"></span>
+              <div class="welcome-status"><span class="live-pulse"></span>System Online</div>
+            </div>
+          </div>
+
+          <!-- Stats -->
+          <div class="stats-grid">
+            <div class="stat-card" data-accent="green">
+              <div class="stat-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+              <div class="stat-info"><span class="stat-number" data-target="24">0</span><span class="stat-label">Total Bins</span></div>
+              <div class="stat-trend up">↑ 4</div>
+            </div>
+            <div class="stat-card" data-accent="blue">
+              <div class="stat-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+              <div class="stat-info"><span class="stat-number" data-target="21">0</span><span class="stat-label">Active Bins</span></div>
+              <div class="stat-trend up">87.5%</div>
+            </div>
+            <div class="stat-card" data-accent="red">
+              <div class="stat-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+              <div class="stat-info"><span class="stat-number" data-target="5">0</span><span class="stat-label">Full Bins</span></div>
+              <div class="stat-trend down">Critical</div>
+            </div>
+            <div class="stat-card" data-accent="amber">
+              <div class="stat-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+              <div class="stat-info"><span class="stat-number" data-target="4">0</span><span class="stat-label">Collections</span></div>
+              <div class="stat-trend">Pending</div>
+            </div>
+          </div>
+
+          <!-- Waste Categories -->
+          <div class="section-header"><h3>Waste Distribution</h3><span class="badge-live"><span class="live-pulse sm"></span>Real-time</span></div>
+          <div class="waste-categories">
+            <div class="waste-cat-card">
+              <div class="waste-cat-ring"><canvas id="chart-wet" width="90" height="90"></canvas><span class="waste-cat-percent">38%</span></div>
+              <h4>Wet Waste</h4>
+              <p>142 kg collected</p>
+              <span class="waste-cat-tag wet">💧 Organic</span>
+            </div>
+            <div class="waste-cat-card">
+              <div class="waste-cat-ring"><canvas id="chart-dry" width="90" height="90"></canvas><span class="waste-cat-percent">45%</span></div>
+              <h4>Dry Waste</h4>
+              <p>168 kg collected</p>
+              <span class="waste-cat-tag dry">📦 Inorganic</span>
+            </div>
+            <div class="waste-cat-card">
+              <div class="waste-cat-ring"><canvas id="chart-recycle" width="90" height="90"></canvas><span class="waste-cat-percent">17%</span></div>
+              <h4>Recyclable</h4>
+              <p>64 kg collected</p>
+              <span class="waste-cat-tag recycle">♻️ Reusable</span>
+            </div>
+          </div>
+
+          <!-- Weekly Chart -->
+          <div class="section-header"><h3>Weekly Overview</h3><span class="section-badge">This Week</span></div>
+          <div class="chart-card"><canvas id="weekly-chart" width="360" height="200"></canvas></div>
+
+          <!-- Insight -->
+          <div class="insight-card">
+            <div class="insight-glow"></div>
+            <div class="insight-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+            <div class="insight-content">
+              <h4>Smart Insight</h4>
+              <p>Waste overflow reduced by <strong>32%</strong> this month. Smart scheduling improved collection efficiency by <strong>28%</strong>.</p>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="section-header"><h3>Quick Actions</h3></div>
+          <div class="quick-actions">
+            <button class="quick-action-btn" onclick="showTab('bins')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg><span>Monitor</span></button>
+            <button class="quick-action-btn" onclick="showTab('map')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Map</span></button>
+            <button class="quick-action-btn" onclick="showTab('analytics')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg><span>Analytics</span></button>
+            <button class="quick-action-btn" onclick="showTab('alerts')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg><span>Alerts</span></button>
+          </div>
+          <div class="spacer"></div>
+        </div>
+      </section>
+
+      <!-- SMART BIN MONITORING -->
+      <section id="tab-bins" class="tab-pane">
+        <div class="tab-scroll">
+          <div class="section-header"><h3>Smart Bin Monitoring</h3><span class="section-badge" id="bin-count-badge">24 Bins</span></div>
+          <div class="filter-chips" id="bin-filters">
+            <button class="filter-chip active" data-filter="all">All</button>
+            <button class="filter-chip" data-filter="full">🔴 Full</button>
+            <button class="filter-chip" data-filter="medium">🟡 Medium</button>
+            <button class="filter-chip" data-filter="empty">🟢 Empty</button>
+            <button class="filter-chip" data-filter="wet">💧 Wet</button>
+            <button class="filter-chip" data-filter="dry">📦 Dry</button>
+            <button class="filter-chip" data-filter="recyclable">♻️ Recycle</button>
+          </div>
+          <div class="search-bar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="bin-search" placeholder="Search location or bin ID...">
+          </div>
+          <div class="bin-cards" id="bin-cards"></div>
+          <div class="spacer"></div>
+        </div>
+      </section>
+
+      <!-- BIN DETAIL -->
+      <section id="tab-bin-detail" class="tab-pane">
+        <div class="tab-scroll">
+          <div class="detail-back"><button class="back-btn" onclick="showTab('bins')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg><span>Back to Bins</span></button></div>
+          <div class="detail-header" id="detail-header"></div>
+          <div class="detail-grid" id="detail-grid"></div>
+          <div class="detail-chart-section"><h4>Fill Level History (24h)</h4><div class="chart-card"><canvas id="detail-fill-chart" width="360" height="170"></canvas></div></div>
+          <div class="detail-actions">
+            <button class="detail-action-btn primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Request Collection</button>
+            <button class="detail-action-btn secondary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Schedule Maintenance</button>
+          </div>
+          <div class="spacer"></div>
+        </div>
+      </section>
+
+      <!-- LIVE ALERTS -->
+      <section id="tab-alerts" class="tab-pane">
+        <div class="tab-scroll">
+          <div class="section-header"><h3>Live Alerts</h3><span class="badge-live alert"><span class="live-pulse sm red"></span>6 Active</span></div>
+          <div class="alert-filters">
+            <button class="filter-chip active" data-alert-filter="all">All</button>
+            <button class="filter-chip" data-alert-filter="critical">🔴 Critical</button>
+            <button class="filter-chip" data-alert-filter="warning">🟡 Warning</button>
+            <button class="filter-chip" data-alert-filter="info">🔵 Info</button>
+          </div>
+          <div class="alerts-list" id="alerts-list"></div>
+          <div class="spacer"></div>
+        </div>
+      </section>
+
+      <!-- CAMPUS MAP -->
+      <section id="tab-map" class="tab-pane">
+        <div class="tab-scroll">
+          <div class="section-header"><h3>Campus Map</h3><span class="badge-live"><span class="live-pulse sm"></span>Tracking</span></div>
+          <div class="map-legend">
+            <span class="legend-item"><span class="legend-dot green"></span>Empty</span>
+            <span class="legend-item"><span class="legend-dot yellow"></span>Medium</span>
+            <span class="legend-item"><span class="legend-dot red"></span>Full</span>
+            <span class="legend-item"><span class="legend-line"></span>Route</span>
+          </div>
+          <div class="map-container" id="map-container"></div>
+          <div class="route-card">
+            <div class="route-card-header">
+              <h4>🚛 Optimized Collection Route</h4>
+              <span class="badge-live"><span class="live-pulse sm"></span>Active</span>
+            </div>
+            <div class="route-stops" id="route-stops"></div>
+            <div class="route-stats">
+              <div class="route-stat"><span class="route-stat-val">4.2 km</span><span class="route-stat-label">Distance</span></div>
+              <div class="route-stat"><span class="route-stat-val">35 min</span><span class="route-stat-label">Est. Time</span></div>
+              <div class="route-stat"><span class="route-stat-val">5</span><span class="route-stat-label">Stops</span></div>
+            </div>
+          </div>
+          <div class="spacer"></div>
+        </div>
+      </section>
+
+      <!-- ANALYTICS -->
+      <section id="tab-analytics" class="tab-pane">
+        <div class="tab-scroll">
+          <div class="section-header"><h3>Analytics</h3><span class="section-badge">June 2026</span></div>
+          <!-- Score -->
+          <div class="score-card">
+            <div class="score-ring-wrap"><canvas id="cleanliness-chart" width="150" height="150"></canvas><div class="score-center"><span class="score-number">87</span><span class="score-label">/ 100</span></div></div>
+            <div class="score-details">
+              <h4>Campus Cleanliness</h4>
+              <p>Excellent — Up 12% from last month</p>
+              <div class="score-bars">
+                <div class="sbar"><span class="sbar-label">Recycling</span><div class="sbar-track"><div class="sbar-fill" style="--w:78%"></div></div><span class="sbar-val">78%</span></div>
+                <div class="sbar"><span class="sbar-label">Segregation</span><div class="sbar-track"><div class="sbar-fill" style="--w:91%"></div></div><span class="sbar-val">91%</span></div>
+                <div class="sbar"><span class="sbar-label">Timeliness</span><div class="sbar-track"><div class="sbar-fill" style="--w:85%"></div></div><span class="sbar-val">85%</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="section-header"><h3>Daily Generation</h3></div>
+          <div class="chart-card"><canvas id="daily-chart" width="360" height="200"></canvas></div>
+          <div class="section-header"><h3>Waste Composition</h3></div>
+          <div class="chart-card pie-row"><canvas id="pie-chart" width="170" height="170"></canvas>
+            <div class="pie-legend">
+              <div class="pie-item"><span class="pie-dot" style="background:#10B981"></span>Wet — 38%</div>
+              <div class="pie-item"><span class="pie-dot" style="background:#3B82F6"></span>Dry — 45%</div>
+              <div class="pie-item"><span class="pie-dot" style="background:#F59E0B"></span>Recyclable — 17%</div>
+            </div>
+          </div>
+          <div class="section-header"><h3>Overflow Trend</h3></div>
+          <div class="chart-card"><canvas id="overflow-chart" width="360" height="170"></canvas></div>
+          <div class="section-header"><h3>Key Metrics</h3></div>
+          <div class="metrics-grid">
+            <div class="metric-card"><span class="metric-emoji">📉</span><h5>Overflow</h5><p><strong>-32%</strong> reduction</p></div>
+            <div class="metric-card"><span class="metric-emoji">♻️</span><h5>Recycling</h5><p><strong>+28%</strong> increase</p></div>
+            <div class="metric-card"><span class="metric-emoji">⚡</span><h5>Fuel Saved</h5><p><strong>15%</strong> less usage</p></div>
+            <div class="metric-card"><span class="metric-emoji">🎯</span><h5>Accuracy</h5><p><strong>91%</strong> segregation</p></div>
+          </div>
+          <div class="spacer"></div>
+        </div>
+      </section>
+
+      <!-- PROJECT INFO -->
+      <section id="tab-project" class="tab-pane">
+        <div class="tab-scroll">
+          <div class="detail-back"><button class="back-btn" onclick="showTab('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg><span>Back</span></button></div>
+          <div class="project-hero">
+            <div class="project-icon"><svg viewBox="0 0 56 56" fill="none"><rect x="14" y="12" width="28" height="32" rx="3" stroke="url(#pGrad)" stroke-width="2" fill="none"/><path d="M20 12V9a2 2 0 012-2h12a2 2 0 012 2v3" stroke="url(#pGrad)" stroke-width="2"/><path d="M22 28l5 5 10-10" stroke="#34D399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="pGrad" x1="14" y1="7" x2="42" y2="44"><stop stop-color="#10B981"/><stop offset="1" stop-color="#06B6D4"/></linearGradient></defs></svg></div>
+            <h2>Smart Waste Management System</h2>
+            <p class="project-college">Alva's Institute of Engineering & Technology, Moodbidri</p>
+          </div>
+          <div class="project-section"><h4>🎯 Purpose</h4><p>Real-time smart waste monitoring and waste collection optimization using IoT sensors and intelligent data analytics for a cleaner, greener campus environment.</p></div>
+          <div class="project-section">
+            <h4>🔧 Hardware Components</h4>
+            <div class="hw-cards">
+              <div class="hw-card"><div class="hw-icon">📡</div><div><h5>Ultrasonic Sensor (HC-SR04)</h5><p>Real-time fill-level detection and distance measurement inside smart bins.</p></div></div>
+              <div class="hw-card"><div class="hw-icon">💧</div><div><h5>Moisture Sensor</h5><p>Capacitive moisture sensor for wet/dry waste classification and segregation.</p></div></div>
+              <div class="hw-card"><div class="hw-icon">📶</div><div><h5>NodeMCU (ESP8266)</h5><p>Wi-Fi enabled microcontroller for data transmission and cloud connectivity.</p></div></div>
+            </div>
+          </div>
+          <div class="project-section">
+            <h4>🏗️ System Architecture</h4>
+            <div class="arch-flow"><span class="arch-node">Sensors</span><span class="arch-arrow">→</span><span class="arch-node">NodeMCU</span><span class="arch-arrow">→</span><span class="arch-node">Wi-Fi</span><span class="arch-arrow">→</span><span class="arch-node">Cloud</span><span class="arch-arrow">→</span><span class="arch-node">App</span></div>
+          </div>
+          <div class="project-section">
+            <h4>✅ Benefits</h4>
+            <div class="benefits-list">
+              <div class="benefit-item"><span class="benefit-check">✓</span><span>Cleaner Campus Environment</span></div>
+              <div class="benefit-item"><span class="benefit-check">✓</span><span>Reduced Waste Overflow</span></div>
+              <div class="benefit-item"><span class="benefit-check">✓</span><span>Better Waste Segregation</span></div>
+              <div class="benefit-item"><span class="benefit-check">✓</span><span>Efficient Collection Routes</span></div>
+              <div class="benefit-item"><span class="benefit-check">✓</span><span>Eco-Friendly Environment</span></div>
+              <div class="benefit-item"><span class="benefit-check">✓</span><span>Real-time Monitoring & Alerts</span></div>
+              <div class="benefit-item"><span class="benefit-check">✓</span><span>Data-Driven Decision Making</span></div>
+            </div>
+          </div>
+          <div class="project-footer-card"><p>Built with ❤️ for a Greener Tomorrow</p><p class="pf-sub">IoT-Based Smart Waste Management System</p><p class="pf-sub">Alva's Institute of Engineering & Technology, Moodbidri</p></div>
+          <div class="spacer"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav" id="bottom-nav">
+      <button class="nav-item active" data-tab="home" onclick="showTab('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg><span>Home</span></button>
+      <button class="nav-item" data-tab="bins" onclick="showTab('bins')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg><span>Bins</span></button>
+      <button class="nav-item" data-tab="alerts" onclick="showTab('alerts')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg><span>Alerts</span></button>
+      <button class="nav-item" data-tab="map" onclick="showTab('map')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Map</span></button>
+      <button class="nav-item" data-tab="analytics" onclick="showTab('analytics')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg><span>Stats</span></button>
+    </nav>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
