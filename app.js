@@ -589,13 +589,16 @@ function getChartGridColor() { return document.documentElement.dataset.theme ===
 function getChartBg() { return document.documentElement.dataset.theme === 'light' ? '#FFFFFF' : '#060B18'; }
 
 function initThemeToggle() {
-  const saved = localStorage.getItem('ecobin-theme');
-  if (saved) document.documentElement.dataset.theme = saved;
+  const saved = localStorage.getItem('ecobin-theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', saved);
 
-  document.getElementById('theme-toggle').addEventListener('click', () => {
-    const current = document.documentElement.dataset.theme;
+  const btn = document.getElementById('theme-toggle');
+  if (!btn) return;
+
+  btn.addEventListener('click', function() {
+    const current = document.documentElement.getAttribute('data-theme');
     const next = current === 'light' ? 'dark' : 'light';
-    document.documentElement.dataset.theme = next;
+    document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('ecobin-theme', next);
 
     // Re-render charts for new theme colors
