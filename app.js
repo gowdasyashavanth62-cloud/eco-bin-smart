@@ -110,15 +110,8 @@ window.showTab = function(tab) {
 
   document.getElementById('header-title').textContent = HEADER_TITLES[tab] || 'EcoBin Smart';
 
-  const btm = document.getElementById('bottom-nav');
-  const tc = document.querySelector('.tab-content');
-  if (tab === 'project' || tab === 'bin-detail') {
-    btm.style.display = 'none';
-    tc.style.marginBottom = '0';
-  } else {
-    btm.style.display = 'flex';
-    tc.style.marginBottom = '68px';
-  }
+  document.getElementById('bottom-nav').style.display = 'flex';
+  document.querySelector('.tab-content').style.marginBottom = '68px';
 
   // Lazy-init
   if (tab === 'home' && !chartsReady.home) { setTimeout(initHomeCharts, 80); chartsReady.home = true; }
@@ -591,6 +584,26 @@ function drawOverflowChart() {
 // ============================================
 // INIT
 // ============================================
+function getChartTextColor() { return document.documentElement.dataset.theme === 'light' ? '#64748B' : '#64748B'; }
+function getChartGridColor() { return document.documentElement.dataset.theme === 'light' ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.03)'; }
+function getChartBg() { return document.documentElement.dataset.theme === 'light' ? '#FFFFFF' : '#060B18'; }
+
+function initThemeToggle() {
+  const saved = localStorage.getItem('ecobin-theme');
+  if (saved) document.documentElement.dataset.theme = saved;
+
+  document.getElementById('theme-toggle').addEventListener('click', () => {
+    const current = document.documentElement.dataset.theme;
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem('ecobin-theme', next);
+
+    // Re-render charts for new theme colors
+    if (chartsReady.home) { chartsReady.home = false; setTimeout(initHomeCharts, 50); chartsReady.home = true; }
+    if (chartsReady.analytics) { chartsReady.analytics = false; setTimeout(initAnalyticsCharts, 50); chartsReady.analytics = true; }
+  });
+}
+
 function initApp() {
   setGreeting();
   animateCounters();
@@ -603,6 +616,7 @@ function initApp() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  initThemeToggle();
   initSplash();
   initLogin();
   initSideMenu();
